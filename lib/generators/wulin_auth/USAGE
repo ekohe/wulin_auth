@@ -1,0 +1,8 @@
+Description:
+    Generate user table for wulin_auth
+
+Example:
+    rails generate wulin_auth:migration
+
+    This will create:
+        db/migrate/xxxx_create_wulin_auth_user_table.rb

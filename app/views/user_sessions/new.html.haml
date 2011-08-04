@@ -1,0 +1,17 @@
+#login_panel
+  %h1 Login
+
+  - if flash[:notice]
+    #flash_notice= flash[:notice]
+
+  = form_tag login_path do
+    #login
+      Login
+      %br
+      %input{:type => 'text', :name => 'login', :id => 'login'}
+    #password
+      Password
+      %br
+      %input{:type => 'password', :name => 'password', :id => 'password'}
+    #submit
+      %input{:type => 'submit', :value => "Login"}
