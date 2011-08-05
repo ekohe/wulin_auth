@@ -31,5 +31,11 @@ module WulinAuth
   end
 end
 
-ApplicationController.send(:include, WulinAuth)
-ApplicationController.send(:helper_method, :current_user)
+class Engine < ::Rails::Engine
+  config.after_initialize do
+    ApplicationController.send(:include, WulinAuth)
+    ApplicationController.send(:helper_method, :current_user)
+    require 'wulin_auth/routes'
+  end
+end
+
