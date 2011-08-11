@@ -9,6 +9,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
+    root_path ||= "/"
     user = User.find_by_login(params[:login])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
