@@ -25,7 +25,7 @@ class UserSessionsControllerTest < ActionController::TestCase
   test "post logout" do
     get :destroy
     assert_response 302, @response.status
-    assert_redirected_to "/wulin_auth/user_sessions/new"
+    assert_redirected_to login_path
   end
 
 end

@@ -16,7 +16,8 @@ class WulinAuth::UserSessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       respond_to do |format|
-        format.html { redirect_to "/" }
+        root_path ||= "/"
+        format.html { redirect_to root_path }
         format.json { render :json => {:status => :success, :user_id => current_user.id} }
       end
     else
@@ -32,6 +33,6 @@ class WulinAuth::UserSessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to "/wulin_auth/user_sessions/new"
+    redirect_to login_path
   end
 end
