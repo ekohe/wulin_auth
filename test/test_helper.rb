@@ -2,7 +2,10 @@ ENV['RAILS_ENV'] = 'test'
 
 $:.unshift File.dirname(__FILE__)
 
-require "rails/all"
+require "action_controller/railtie"
+require "active_record"
+
+require "rails/test_unit/railtie"
 require "rails/test_help"
 
 require 'wulin_auth' 
