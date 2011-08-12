@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wulin</title>
+    <%- if Object.const_defined?(:WulinMaster) %>
+      <%= stylesheet_link_tag *WulinMaster.stylesheets %>
+    <% end -%>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

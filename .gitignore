@@ -1,5 +1,4 @@
 pkg/*
 *.gem
 .bundle
-test/database.yml
 *.log
