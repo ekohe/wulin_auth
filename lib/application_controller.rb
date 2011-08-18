@@ -5,11 +5,7 @@ module WulinAuth
     
     module InstanceMethods
       def current_user
-        @current_user ||= User.find(session[:user_id]) if session[:user_id]
-      end
-
-      def logged_in?
-        !current_user.nil?
+        @current_user ||= WulinAuth::User.find(session[:user_id]) if session[:user_id]
       end
 
       def on_login_page?
@@ -17,10 +13,10 @@ module WulinAuth
       end
 
       def require_login
-        if !logged_in? && !on_login_page?
+        if current_user.nil?
           return unauthorized_response
         else
-          logger.warn "Authenticated as #{current_user.login}" unless on_login_page?
+          logger.warn "Authenticated as #{current_user.login}"
         end
       end
 

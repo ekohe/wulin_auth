@@ -6,7 +6,7 @@ class CreateWulinAuthUserTable < ActiveRecord::Migration
         t.string :password_digest
         t.timestamps
       end
-    elsif !User.column_names.include?("password_digest")
+    elsif !WulinAuth::User.column_names.include?("password_digest")
       add_column :users, :password_digest, :string
     end
   end
