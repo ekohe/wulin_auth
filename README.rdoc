@@ -1,0 +1,39 @@
+== WulinAuth
+
+Authlogic is a clean, simple, and unobtrusive authentication solution for Rails 3.1.
+It's use authentication feature of Rails 3.1, so it support rails 3.1 only. More details
+about authentication in rails 3.1 please check this video on railscasts:
+http://railscasts.com/episodes/270-authentication-in-rails-3-1
+
+
+== How to Use
+
+1. Put 'gem wulin_auth' to your Gemfile:
+
+   gem wulin_auth
+
+2. Run bundler command to install the gem:
+
+   bundle install --path bundler
+   
+3. After you install wulin_auth gem, you need run the generator:
+
+  bundle exec rails g wulin_auth:migration
+
+ It will generator db/migrate/<timestamp>_create_users.rb migrate file to your app
+
+ Run with <tt>bundle exec rails g</tt> for get generator list.
+
+4. Don't forget to run the db:migrate rake command:
+
+  bundle exec rake db:migrate
+
+
+
+== Contributing
+
+Jimmy, Xuhao and Maxime Guilbot from Ekohe, inc.
+
+== License
+
+WulinExcel is released under the MIT license.

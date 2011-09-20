@@ -1,8 +1,0 @@
-TODO
-=========================
-
-1. Create a generator that generates the migration to add salt and salted_password columns
-
-2. Add the route to the user session controller
-
-3. 
