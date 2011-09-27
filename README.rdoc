@@ -1,4 +1,4 @@
-== WulinAuth
+= WulinAuth
 
 Authlogic is a clean, simple, and unobtrusive authentication solution for Rails 3.1.
 It's use authentication feature of Rails 3.1, so it support rails 3.1 only. More details
@@ -8,6 +8,7 @@ about authentication in rails 3.1 please check this video on railscasts:
 
 
 == How to Use
+
 
 1. Put 'gem wulin_auth' to your Gemfile:
 
