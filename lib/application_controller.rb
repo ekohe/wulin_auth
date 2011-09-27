@@ -3,6 +3,12 @@ module WulinAuth
     ## this one manages the usual self.included, klass_eval stuff
     extend ActiveSupport::Concern
     
+    included do
+      class_eval do
+        helper_method :current_user
+      end
+    end
+      
     module InstanceMethods
       def current_user
         @current_user ||= WulinAuth::User.find(session[:user_id]) if session[:user_id]
