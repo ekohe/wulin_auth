@@ -1,0 +1,23 @@
+#login_panel
+  %h1
+    Sign in to
+    = WulinMaster.configuration.app_title
+  
+  #flash_notice_container
+    - if flash[:notice]
+      #flash_notice= flash[:notice]
+
+  = form_tag login_path do
+    %ul
+      %li.first-child
+        = text_field_tag 'email', ''
+        = label_tag 'email', "Email address"
+      %li
+        = password_field_tag 'password', ''
+        = label_tag 'password', "Password"
+      %li
+        = submit_tag "Login", {:id => 'submit'}
+        #indicator{:style => 'opacity:0;filter:alpha(opacity=0);-moz-opacity:0'}= image_tag 'indicator.gif'
+
+:javascript
+  $(document).ready(function() { initializeLoginForm(); });

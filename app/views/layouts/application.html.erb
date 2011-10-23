@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Wulin</title>
-    <%- if Object.const_defined?(:WulinMaster) %>
-      <%= stylesheet_link_tag *WulinMaster.stylesheets %>
-    <% end -%>
+    <title><%= WulinMaster.configuration.app_title %> - Sign in</title>
+    <%= stylesheet_link_tag 'login' %>
+    <%= javascript_include_tag 'jquery', 'jquery_plugins/jquery-ui.min', 'login' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <%= yield %>
+    <div id="shadow"></div>
+    <div id="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

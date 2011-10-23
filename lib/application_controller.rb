@@ -22,7 +22,7 @@ module WulinAuth
         if current_user.nil?
           return unauthorized_response
         else
-          logger.warn "Authenticated as #{current_user.login}"
+          logger.warn "Authenticated as #{current_user.email}"
         end
       end
 

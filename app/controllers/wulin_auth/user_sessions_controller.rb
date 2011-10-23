@@ -12,7 +12,7 @@ class WulinAuth::UserSessionsController < ApplicationController
   end
 
   def create
-    user = WulinAuth::User.find_by_login(params[:login])
+    user = WulinAuth::User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       respond_to do |format|
