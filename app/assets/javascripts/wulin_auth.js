@@ -1,3 +1,3 @@
-//= require "jquery_plugins/jquery-ui.min"
-//= require "jquery"
+//= require jquery
+//= require jquery_ujs
 //= require "login"
