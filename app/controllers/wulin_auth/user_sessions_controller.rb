@@ -16,9 +16,9 @@ class WulinAuth::UserSessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       respond_to do |format|
-        root_path ||= "/"
-        format.html { redirect_to root_path }
-        format.json { render :json => {:status => :success, :user_id => current_user.id} }
+        redirect_url = (session[:return_to] || '/')
+        format.html { redirect_to redirect_url }
+        format.json { render :json => {:status => :success, :user_id => current_user.id, :redirect_to => redirect_url} }
       end
     else
       respond_to do |format|

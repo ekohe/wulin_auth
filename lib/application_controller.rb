@@ -22,6 +22,7 @@ module WulinAuth
         if current_user.nil?
           return unauthorized_response
         else
+          session.delete(:return_to) if session[:return_to]
           logger.warn "Authenticated as #{current_user.email}"
         end
       end
@@ -29,6 +30,8 @@ module WulinAuth
       def unauthorized_response
         respond_to do |format|
           format.html do
+            session[:return_to] = request.url
+            Rails.logger.info "Authentication needed - Saving return to url to #{session[:return_to]}"
             flash[:notice] = "You must be logged in to access this page."
             redirect_to login_path
           end

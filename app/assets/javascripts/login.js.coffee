@@ -53,7 +53,7 @@ handleLoginResponse = (response) ->
       $("input").remove()
       $("#indicator").css('padding-left', '215px').css('position', 'relative')
       displayFlashNotice("Login successful, redirecting...")
-      document.location = '/'
+      document.location = response.redirect_to
     else
       displayFlashNotice("An unexpected error occured. Please try again.")
       enableForm()
