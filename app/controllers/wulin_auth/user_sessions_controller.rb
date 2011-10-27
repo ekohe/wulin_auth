@@ -1,8 +1,8 @@
 class WulinAuth::UserSessionsController < ApplicationController
-  
   self.view_paths = [File.join(Rails.root, 'app', 'views'), File.join(File.dirname(__FILE__), '../..', 'views')]
 
   skip_before_filter :require_login, :only => [:new, :create]
+  layout :wulin_auth
   
   # GET /login
   def new

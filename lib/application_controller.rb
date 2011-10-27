@@ -27,12 +27,13 @@ module WulinAuth
         end
       end
 
-      def unauthorized_response
+      def unauthorized_response(message="You must be logged in to access this page.")
         respond_to do |format|
           format.html do
-            session[:return_to] = request.url
-            Rails.logger.info "Authentication needed - Saving return to url to #{session[:return_to]}"
-            flash[:notice] = "You must be logged in to access this page."
+            session[:return_to] = request.get? ? request.url : nil
+            Rails.logger.info "Authentication needed, redirecting to login page"
+            Rails.logger.info "Saving return to url to #{session[:return_to]}" if session[:return_to]
+            flash[:notice] = message
             redirect_to login_path
           end
           format.json { render :json => {:error => :not_authorized} }
