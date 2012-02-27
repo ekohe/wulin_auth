@@ -1,4 +1,18 @@
 module WulinAuth
+  module AbstractController
+    extend ActiveSupport::Concern
+
+    # Instance Methods
+      
+    def current_user
+      @current_user ||= WulinAuth::User.find(session[:user_id]) if session[:user_id]
+    end
+  end
+end
+
+::AbstractController::Base.send :include, WulinAuth::AbstractController
+
+module WulinAuth
   module Controller
     ## this one manages the usual self.included, klass_eval stuff
     extend ActiveSupport::Concern
@@ -7,12 +21,6 @@ module WulinAuth
       class_eval do
         helper_method :current_user
       end
-    end
-
-    # Instance Methods
-      
-    def current_user
-      @current_user ||= WulinAuth::User.find(session[:user_id]) if session[:user_id]
     end
 
     def on_login_page?
@@ -44,4 +52,4 @@ module WulinAuth
   end
 end
 
-::AbstractController::Base.send :include, WulinAuth::Controller
+::ActionController::Base.send :include, WulinAuth::Controller
