@@ -35,4 +35,9 @@ class WulinAuth::UserSessionsController < ActionController::Base
     reset_session
     redirect_to login_path
   end
+  
+  def remote_destroy
+    reset_session
+    render :nothing => true
+  end
 end
