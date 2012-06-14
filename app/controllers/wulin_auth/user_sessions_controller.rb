@@ -38,6 +38,6 @@ class WulinAuth::UserSessionsController < ActionController::Base
   
   def remote_destroy
     reset_session
-    render :nothing => true
+    render :text => 'Logout!'
   end
 end
