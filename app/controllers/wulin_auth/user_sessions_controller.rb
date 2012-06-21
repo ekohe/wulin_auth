@@ -33,6 +33,7 @@ class WulinAuth::UserSessionsController < ActionController::Base
 
   def destroy
     reset_session
-    redirect_to login_path
+    redirect_path = params[:redirect_uri].presence || login_path
+    redirect_to redirect_path
   end
 end
