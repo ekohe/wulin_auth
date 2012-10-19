@@ -12,7 +12,7 @@ class WulinAuth::UserSessionsController < ActionController::Base
 
   def create
     user = WulinAuth::User.find_by_email(params[:email])
-    if user && user.authenticate(params[:password])
+    if user && (user.authenticate(params[:password]) rescue false)
       session[:user_id] = user.id
       respond_to do |format|
         redirect_url = (session[:return_to] || '/')
