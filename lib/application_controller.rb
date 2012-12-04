@@ -47,7 +47,6 @@ module WulinAuth
         end
         format.json { render :json => {:error => :not_authorized} }
       end
-      false
     end
   end
 end
