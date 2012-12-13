@@ -33,6 +33,7 @@ module WulinAuth
       else
         session.delete(:return_to) if session[:return_to]
         logger.warn "Authenticated as #{current_user.email}"
+        return true
       end
     end
 
@@ -44,8 +45,12 @@ module WulinAuth
           Rails.logger.info "Saving return to url to #{session[:return_to]}" if session[:return_to]
           flash[:notice] = message
           redirect_to login_path
+          return false
         end
-        format.json { render :json => {:error => :not_authorized} }
+        format.json {
+          render :json => {:error => :not_authorized}
+          return false
+        }
       end
     end
   end
