@@ -43,7 +43,7 @@ displayFlashNotice = (message) ->
 handleLoginResponse = (response) ->
   if response.status == "wrong_credentials"
     displayFlashNotice "Incorrect username or password"
-    $("#login_panel form").effect('bounce', {direction: 'right', mode: 'effect', times: 3, distance: 10}, 'fast')
+    #$("#login_panel form").effect('bounce', {direction: 'right', mode: 'effect', times: 3, distance: 10}, 'fast')
     $("#indicator").css('opacity', 0)
     enableForm()
     # Empty password field
