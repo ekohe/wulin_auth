@@ -1,4 +1,5 @@
-module WulinAuth
- require 'engine' if defined?(Rails) && Rails::VERSION::MAJOR == 3
- require 'application_controller'
-end
+require 'engine' if defined?(Rails) && Rails::VERSION::MAJOR == 3
+
+module WulinAuth;end
+
+require 'application_controller'
