@@ -2,8 +2,6 @@ module WulinAuth
   module AbstractController
     extend ActiveSupport::Concern
 
-    # Instance Methods
-      
     def current_user
       @current_user ||= WulinAuth::User.find(session[:user_id]) if session[:user_id]
     end
@@ -14,13 +12,10 @@ end
 
 module WulinAuth
   module Controller
-    ## this one manages the usual self.included, klass_eval stuff
     extend ActiveSupport::Concern
     
     included do
-      class_eval do
-        helper_method :current_user
-      end
+      helper_method :current_user
     end
 
     def on_login_page?
