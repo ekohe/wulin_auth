@@ -1,8 +1,8 @@
 class WulinAuth::UserSessionsController < ActionController::Base
 
-  skip_before_filter :require_login, :only => [:new, :create]
+  before_action :require_login, only: [:destroy]
   layout 'wulin_auth'
-  
+
   # GET /login
   def new
     respond_to do |format|
