@@ -20,26 +20,26 @@ loginFormSubmission = (form) ->
     failure: (data) ->
       displayFlashNotice("An unexpected error occured. Please try again.")
       enableForm()
-      
-  $.ajax ajaxOptions  
+
+  $.ajax ajaxOptions
   disableForm()
   $("#indicator").css 'opacity', 1.0
   false
-  
-disableForm = -> 
+
+disableForm = ->
   $("input").attr('disabled', 'disabled').css('opacity', 0.5)
 
 enableForm = ->
   $("input").removeAttr('disabled').css('opacity', 1.0)
   $("input#email").focus()
-  
-  
+
+
 displayFlashNotice = (message) ->
   element = $("<div id='flash_notice' style='display: none'/>")
   element.html(message)
   $("#flash_notice_container").html(element)
   $("#flash_notice").show()
-  
+
 handleLoginResponse = (response) ->
   if response.status == "wrong_credentials"
     displayFlashNotice "Incorrect username or password"
@@ -58,20 +58,24 @@ handleLoginResponse = (response) ->
       displayFlashNotice("An unexpected error occured. Please try again.")
       enableForm()
 
-window.initializeLoginForm = ->
-  checkPlaceholderForAllInputs()
-  
-  # To make sure it happens after the browser auto-fills login & password info
-  setTimeout checkPlaceholderForAllInputs, 500
-
-  # Initial focus on the email field
-  $("input#email").focus()
-
-  # Monitor for interaction on the fields to toggle the label place holder
-  $('input').bind('keyup change blur focus', -> checkPlaceholder(this))
-  $('input').bind('keydown', -> removePlaceholder(this))
-  
-  # Ajaxify the form
-  $("#login_panel form").submit(-> loginFormSubmission($(this)))
-  
-  true
+window.initializeLoginForm = (message) ->
+  if message
+    Materialize.toast(message, 3000);
+  #
+  #
+  # checkPlaceholderForAllInputs()
+  #
+  # # To make sure it happens after the browser auto-fills login & password info
+  # setTimeout checkPlaceholderForAllInputs, 500
+  #
+  # # Initial focus on the email field
+  # $("input#email").focus()
+  #
+  # # Monitor for interaction on the fields to toggle the label place holder
+  # $('input').bind('keyup change blur focus', -> checkPlaceholder(this))
+  # $('input').bind('keydown', -> removePlaceholder(this))
+  #
+  # # Ajaxify the form
+  # $("#login_panel form").submit(-> loginFormSubmission($(this)))
+  #
+  # true
