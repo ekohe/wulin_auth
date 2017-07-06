@@ -1,14 +1,3 @@
-checkPlaceholder = (input) ->
-  if $(input).val() ==  ""
-    $(input).siblings('label').show()
-  else
-    removePlaceholder(input)
-
-checkPlaceholderForAllInputs = ->
-  checkPlaceholder input for input in $('input')
-
-removePlaceholder = (input) -> $(input).siblings('label').hide()
-
 loginFormSubmission = (form) ->
   ajaxOptions =
     type: 'POST'
@@ -23,59 +12,49 @@ loginFormSubmission = (form) ->
 
   $.ajax ajaxOptions
   disableForm()
-  $("#indicator").css 'opacity', 1.0
   false
 
 disableForm = ->
-  $("input").attr('disabled', 'disabled').css('opacity', 0.5)
+  $("input").attr('disabled', 'disabled').css('opacity', 0.3)
+  $("label").css('opacity', 0.3)
+  $("#password-img").css('opacity', 0.3)
+  $("#submit").hide()
+  $("#preloader").show()
 
 enableForm = ->
   $("input").removeAttr('disabled').css('opacity', 1.0)
+  $("label").css('opacity', 1.0)
+  $("#password-img").css('opacity', 1.0)
   $("input#email").focus()
-
+  $("#submit").show()
+  $("#preloader").hide()
 
 displayFlashNotice = (message) ->
-  element = $("<div id='flash_notice' style='display: none'/>")
-  element.html(message)
-  $("#flash_notice_container").html(element)
-  $("#flash_notice").show()
+  Materialize.toast(message, 3000)
 
 handleLoginResponse = (response) ->
   if response.status == "wrong_credentials"
-    displayFlashNotice "Incorrect username or password"
+    displayFlashNotice response.message
     #$("#login_panel form").effect('bounce', {direction: 'right', mode: 'effect', times: 3, distance: 10}, 'fast')
-    $("#indicator").css('opacity', 0)
     enableForm()
     # Empty password field
     $("input#password").val('')
   else
     if response.status=="success"
       $("input").remove()
-      $("#indicator").css('padding-left', '215px').css('position', 'relative')
-      displayFlashNotice("Login successful, redirecting...")
+      displayFlashNotice(response.message)
       document.location = response.redirect_to
     else
       displayFlashNotice("An unexpected error occured. Please try again.")
       enableForm()
 
-window.initializeLoginForm = (message) ->
+window.toast = (message) ->
   if message
     Materialize.toast(message, 3000);
-  #
-  #
-  # checkPlaceholderForAllInputs()
-  #
-  # # To make sure it happens after the browser auto-fills login & password info
-  # setTimeout checkPlaceholderForAllInputs, 500
-  #
-  # # Initial focus on the email field
-  # $("input#email").focus()
-  #
-  # # Monitor for interaction on the fields to toggle the label place holder
-  # $('input').bind('keyup change blur focus', -> checkPlaceholder(this))
-  # $('input').bind('keydown', -> removePlaceholder(this))
-  #
-  # # Ajaxify the form
-  # $("#login_panel form").submit(-> loginFormSubmission($(this)))
-  #
-  # true
+
+window.initializeLoginForm = () ->
+  # Initial focus on the email field
+  $("input#email").focus()
+  # Ajaxify the form
+  $("form").submit(-> loginFormSubmission($(this)))
+  true

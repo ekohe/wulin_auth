@@ -1,0 +1,13 @@
+!!!
+%html
+  %head
+    %title
+      - if defined?(WulinMaster)
+        = WulinMaster.config.app_title
+    = stylesheet_link_tag 'wulin_auth'
+    = javascript_include_tag 'wulin_auth'
+    = csrf_meta_tags
+
+  %body
+    #shadow
+    #container= yield

@@ -1,0 +1,19 @@
+#container.valign-wrapper
+  .row
+    .card.larger
+      .card-content
+        .row
+          %h5=t 'wulin_auth.password_resets.title'
+        = form_tag password_resets_path, :class => "password-reset" do
+          .row
+            .input-field
+              = email_field_tag 'email'
+              = label_tag 'email', t('wulin_auth.password_resets.email')
+          .row.center
+            .btn.waves-effect
+              = submit_tag t('wulin_auth.password_resets.submit')
+
+:javascript
+  $(document).ready(function() {
+    toast("#{flash[:notice]}");
+  });

@@ -1,23 +1,30 @@
-#login_panel
-  %h1
-    Sign in to
-    = WulinMaster.config.app_title
-  
-  #flash_notice_container
-    - if flash[:notice]
-      #flash_notice= flash[:notice]
-
-  = form_tag login_path do
-    %ul
-      %li.first-child
-        = text_field_tag 'email', ''
-        = label_tag 'email', "Email address"
-      %li
-        = password_field_tag 'password', ''
-        = label_tag 'password', "Password"
-      %li
-        = submit_tag "Login", {:id => 'submit'}
-        #indicator{:style => 'opacity:0;filter:alpha(opacity=0);-moz-opacity:0'}= image_tag 'indicator.gif'
+#container.valign-wrapper
+  .row
+    .card.larger
+      .card-content
+        .row
+          %h5=t 'wulin_auth.login.title'
+        = form_tag login_path do
+          .row
+            .input-field
+              = email_field_tag 'email'
+              = label_tag 'email', t('wulin_auth.login.email')
+          .row#password-container
+            .input-field
+              = password_field_tag 'password'
+              = label_tag 'password', t('wulin_auth.login.password')
+            #password-img
+              = link_to new_password_reset_path do
+                %i.material-icons.tooltipped{'data-tooltip': t('wulin_auth.login.reset_password')}
+                  info_outline
+          #submit.row.center{style: 'height: 50px;'}
+            .btn.waves-effect
+              = submit_tag 'Login'
+          #preloader.row.center{style: 'display: none; height: 50px;'}
+            = render 'wulin_auth/shared/preloader'
 
 :javascript
-  $(document).ready(function() { initializeLoginForm(); });
+  $(document).ready(function() {
+    toast("#{flash[:notice]}");
+    initializeLoginForm();
+  });

@@ -1,38 +1,51 @@
-class WulinAuth::UserSessionsController < ActionController::Base
+# TODO: Move strings to locales yml files
 
-  before_action :require_login, only: [:destroy]
-  layout 'wulin_auth'
+module WulinAuth
+  class UserSessionsController < ActionController::Base
+    before_action :require_login, only: [:destroy]
+    layout 'wulin_auth'
 
-  # GET /login
-  def new
-    respond_to do |format|
-      format.html { render }
-    end
-  end
-
-  def create
-    user = WulinAuth::User.find_by_email(params[:email])
-    if user && (user.authenticate(params[:password]) rescue false)
-      session[:user_id] = user.id
+    # GET /login
+    def new
       respond_to do |format|
-        redirect_url = (session[:return_to] || '/')
-        format.html { redirect_to redirect_url }
-        format.json { render :json => {:status => :success, :user_id => current_user.id, :redirect_to => redirect_url} }
+        format.html { render }
       end
-    else
-      respond_to do |format|
-        format.html do
-          flash[:notice] = "Username or password incorrect."
-          render :new
+    end
+
+    # POST /login
+    def create
+      user = WulinAuth::User.find_by(email: params[:email].try(:downcase))
+      if user.try(:authenticate, params[:password])
+        session[:user_id] = user.id
+        respond_to do |format|
+          redirect_url = (session[:return_to] || '/')
+          format.html { redirect_to redirect_url }
+          format.json do
+            render json: { status: :success,
+                           message: t('wulin_auth.user_sessions.successful'),
+                           user_id: current_user.id,
+                           redirect_to: redirect_url }
+          end
         end
-        format.json { render :json => {:status => :wrong_credentials} }
+      else
+        respond_to do |format|
+          format.html do
+            flash[:notice] = t('wulin_auth.user_sessions.incorrect')
+            render :new
+          end
+          format.json do
+            render json: { status: :wrong_credentials,
+                           message: t('wulin_auth.user_sessions.incorrect') }
+          end
+        end
       end
     end
-  end
 
-  def destroy
-    reset_session
-    redirect_path = params[:redirect_uri].presence || login_path
-    redirect_to redirect_path
+    # GET /logout
+    def destroy
+      reset_session
+      redirect_path = params[:redirect_uri].presence || login_path
+      redirect_to redirect_path
+    end
   end
 end

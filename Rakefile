@@ -1,14 +1,27 @@
-require 'rake'
+begin
+  require 'bundler/setup'
+rescue LoadError
+  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+end
+
+require 'rdoc/task'
+
+RDoc::Task.new(:rdoc) do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'WulinAuth'
+  rdoc.options << '--line-numbers'
+  rdoc.rdoc_files.include('README.md')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
+load 'rails/tasks/engine.rake'
+load 'rails/tasks/statistics.rake'
+
+require 'bundler/gem_tasks'
 require 'rake/testtask'
 
-task :default => :test
+desc "Run all specs in spec directory (excluding plugin specs)"
+RSpec::Core::RakeTask.new(spec: 'app:db:test:prepare')
 
-desc "Test the wulin_auth gem"
-Rake::TestTask.new("test") { |t|
-  t.libs << 'app'
-  t.libs << 'lib'
-  t.libs << 'config'
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
-}
+task default: :spec

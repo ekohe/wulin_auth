@@ -1,0 +1,39 @@
+en:
+  wulin_auth:
+    login:
+      title: Sign in
+      email: Email
+      password: Password
+      reset_password: Reset Password
+    unauthorized_response: You must be logged in to access this page.
+    user_sessions:
+      incorrect: Username or password incorrect.
+      successful: Please wait...
+    password_resets:
+      title: Forgot your password?
+      email: Email
+      submit: Reset your password
+      email_non_existent: Sorry, this email address does not seem to be registered.
+      error: An error occured. Please try again.
+      password_cannot_be_blank: Password cannot be blank
+      success: Your password has been successfully reset.
+      email_subject: Reset your password
+    reset_password:
+      email_sent_title: Email Sent
+      email_sent: We have sent you an email to reset your password.
+                  Please check your mailbox and follow the instructions.
+      title: Reset password
+      instructions: "In order to reset the password for %{email}, please enter a new password below:"
+      password: Password
+      password_confirmation: Confirm new password
+      submit: Reset password and login
+
+      email:
+        hello: Hello,
+        please_click: 'In order to reset your password, please click on the following link:'
+        footer: Thanks!
+  activerecord:
+    errors:
+      models:
+        wulin_auth/user:
+          confirmation: Passwords don't match
