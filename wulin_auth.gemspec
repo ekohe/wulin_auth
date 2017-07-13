@@ -1,6 +1,7 @@
 $LOAD_PATH.push File.expand_path("../lib", __FILE__)
 require "wulin_auth/version"
 
+# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |s|
   s.name        = "wulin_auth"
   s.version     = WulinAuth::VERSION
