@@ -1,0 +1,18 @@
+common: &common
+  adapter: postgresql
+  encoding: utf8
+  username: postgres
+  password:
+  host: postgres
+
+development:
+  <<: *common
+  database: wulin_auth_development
+
+test: &test
+  <<: *common
+  database: wulin_auth_test
+
+production:
+  <<: *common
+  database: wulin_auth

@@ -1,0 +1,22 @@
+image: ruby:2.3.1
+
+services:
+  - postgres:latest
+
+variables:
+  POSTGRES_DB: wulin_auth_test
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: ''
+
+before_script:
+  - apt-get update -qy
+  - apt-get install -qy nodejs
+  - apt-get install -qy libfontconfig1
+  - gem install bundler
+  - cp spec/dummy/config/database.ci.yml spec/dummy/config/database.yml
+  - bundle install --path /cache
+
+test:
+  script:
+    - bundle exec rubocop
+    - bundle exec rspec
