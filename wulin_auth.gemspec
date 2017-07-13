@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'haml'
   s.add_dependency 'materialize-sass'
   s.add_dependency 'material_icons'
+  s.add_dependency 'zxcvbn-ruby'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'pg'
 end

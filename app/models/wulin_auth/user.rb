@@ -1,7 +1,10 @@
+require WulinAuth::Engine.root.join('lib', 'password_complexity_validator')
+
 module WulinAuth
   class User < ApplicationRecord
     has_secure_password
     validates :email, presence: true, uniqueness: true
+    validates_with PasswordComplexityValidator
 
     scope :by_token, lambda { |token|
       where(["token = ? AND token_expires_at > ?", token, Time.current])
@@ -14,8 +17,11 @@ module WulinAuth
 
     def send_password_reset!
       create_token
-      save
-      PasswordResetMailer.reset_password(self).deliver
+      if save
+        PasswordResetMailer.reset_password(self).deliver
+      else
+        false
+      end
     end
   end
 end

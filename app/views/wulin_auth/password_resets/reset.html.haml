@@ -11,14 +11,66 @@
             .input-field
               = password_field_tag 'user[password]', '', {class: @user.errors[:password].empty? ? '' : 'invalid'}
               = label_tag 'user_password', t('wulin_auth.reset_password.password')
-              - unless @user.errors[:password].empty?
-                .error_message= @user.errors[:password].join(',')
+              .error_message#user_password_error_message
+                - unless @user.errors[:password].empty?
+                  = @user.errors[:password].join(',')
           .row
             .input-field
               = password_field_tag 'user[password_confirmation]', '', {class: @user.errors[:password_confirmation].empty? ? '' : 'invalid'}
               = label_tag 'user_password_confirmation', t('wulin_auth.reset_password.password_confirmation')
-              - unless @user.errors[:password_confirmation].empty?
-                .error_message= @user.errors[:password_confirmation].join(',')
+              .error_message#user_password_confirmation_error_message{data: {blank_message: t('activerecord.errors.models.wulin_auth/user.confirmation')}}
+                - unless @user.errors[:password_confirmation].empty?
+                  = @user.errors[:password_confirmation].join(',')
           .row.center
             .btn.waves-effect
               = submit_tag t('wulin_auth.reset_password.submit')
+
+:javascript
+  $(document).ready(function() {
+    var validatePasswordOnKeyPress = false;
+
+    function validatePassword() {
+      $.ajax({
+        url: '/reset_password/password_complexity',
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        },
+        method: 'POST',
+        dataType: 'json',
+        data: {
+          password: $("#user_password").val()
+        },
+        success: function(data) {
+          if (data.valid) {
+            $("#user_password").removeClass('invalid');
+            $("#user_password_error_message").html('');
+          } else {
+            $("#user_password").addClass('invalid');
+            $("#user_password_error_message").html(data.error);
+            validatePasswordOnKeyPress = true;
+          }
+        }});
+
+       if ($("#user_password").val().length>0) {
+         if ($("#user_password").val()==$("#user_password_confirmation").val()) {
+           $("#user_password_confirmation").removeClass('invalid');
+           $("#user_password_confirmation_error_message").html('');
+         } else {
+           $("#user_password_confirmation").addClass('invalid');
+           $("#user_password_confirmation_error_message").html($("#user_password_confirmation_error_message").data().blankMessage);
+         }
+       } else {
+        $("#user_password_confirmation").removeClass('invalid');
+        $("#user_password_confirmation_error_message").html('');
+       }
+    }
+
+    $("#user_password").on('change', validatePassword);
+    $("#user_password_confirmation").on('change', validatePassword);
+    $("#user_password").on('keyup keydown', function() {
+      if (validatePasswordOnKeyPress) {
+        validatePassword();
+      }
+    });
+
+  });

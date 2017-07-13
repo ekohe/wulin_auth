@@ -9,8 +9,12 @@ module WulinAuth
     def create
       @user = User.where(email: params[:email].try(:downcase)).first
       if @user
-        @user.send_password_reset!
-        redirect_to password_resets_email_sent_path
+        if @user.send_password_reset!
+          redirect_to password_resets_email_sent_path
+        else
+          flash.now[:notice] = t('wulin_auth.password_resets.error')
+          render :new
+        end
       else
         flash.now[:notice] = t('wulin_auth.password_resets.email_non_existent')
         render :new
@@ -24,6 +28,24 @@ module WulinAuth
       return if @user
       flash.now[:notice] = t('wulin_auth.password_resets.error')
       render :new
+    end
+
+    def password_complexity
+      if params[:password].blank?
+        render json:
+          {
+            valid: false,
+            error: t('wulin_auth.password_resets.password_cannot_be_blank')
+          }
+        return
+      end
+      @user = User.new(password: params[:password])
+      @user.valid?
+      response = { valid: @user.errors[:password].none? }
+      if @user.errors[:password].any?
+        response[:error] = @user.errors[:password].join(', ')
+      end
+      render json: response
     end
 
     def update

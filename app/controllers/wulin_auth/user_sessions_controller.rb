@@ -1,5 +1,3 @@
-# TODO: Move strings to locales yml files
-
 module WulinAuth
   class UserSessionsController < ActionController::Base
     before_action :require_login, only: [:destroy]
