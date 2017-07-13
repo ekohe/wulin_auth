@@ -53,6 +53,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (8.0.0)
+    ast (2.3.0)
     bcrypt (3.1.11)
     builder (3.2.3)
     coffee-script (2.4.1)
@@ -91,7 +92,11 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
+    parallel (1.11.2)
+    parser (2.4.0.0)
+      ast (~> 2.2)
     pg (0.21.0)
+    powerpack (0.1.1)
     rack (2.0.3)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -118,6 +123,8 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (2.2.2)
+      rake
     rake (12.0.0)
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
@@ -139,6 +146,14 @@ GEM
       rspec-mocks (~> 3.6.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
+    rubocop (0.49.1)
+      parallel (~> 1.10)
+      parser (>= 2.3.3.1, < 3.0)
+      powerpack (~> 0.1)
+      rainbow (>= 1.99.1, < 3.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.0, >= 1.0.1)
+    ruby-progressbar (1.8.1)
     sass (3.5.0)
       sass-listen (~> 3.0.7)
     sass-listen (3.0.7)
@@ -163,6 +178,7 @@ GEM
     tilt (2.0.7)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    unicode-display_width (1.3.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -174,6 +190,7 @@ PLATFORMS
 DEPENDENCIES
   pg
   rspec-rails
+  rubocop
   wulin_auth!
 
 BUNDLED WITH

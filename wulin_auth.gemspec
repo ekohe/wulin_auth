@@ -30,4 +30,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'zxcvbn-ruby'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'pg'
+  s.add_development_dependency 'rubocop'
 end
