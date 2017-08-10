@@ -14,6 +14,7 @@ before_script:
   - apt-get install -qy libfontconfig1
   - gem install bundler
   - cp spec/dummy/config/database.ci.yml spec/dummy/config/database.yml
+  - rm -rf Gemfile.lock
   - bundle install -j8 --path /cache
 
 test:
