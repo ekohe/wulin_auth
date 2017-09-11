@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
                     map { |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency 'rails', '5.1.3'
+  s.add_dependency 'rails', '~>5.1.4'
   s.add_dependency 'bcrypt'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'coffee-script'
