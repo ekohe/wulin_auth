@@ -1,4 +1,4 @@
-//////////////////
+/////////////////
 // Button
 
 // Raised Button
@@ -26,7 +26,10 @@
   }
 }
 
-// Form: Input Field
+/////////////////
+// Form
+
+// Input Field
 
 input:not([type]),
 input[type=text],
@@ -52,13 +55,22 @@ textarea.materialize-textarea {
   }
 }
 
-// Form: Check Box
+// Check Box
 
 [type="checkbox"].filled-in:checked + label:after {
   border-color: $main-color;
   background-color: $main-color;
 }
 
+// Link
+
 a {
   color: $main-color;
+}
+
+// Label
+
+.input-field label {
+  transform: translateY(-14px) scale(0.8);
+  transform-origin: 0 0;
 }
