@@ -42,6 +42,7 @@ handleLoginResponse = (response) ->
   else
     if response.status=="success"
       $("input").remove()
+      $("label").remove()
       displayFlashNotice(response.message)
       document.location = response.redirect_to
     else
