@@ -10,6 +10,7 @@ module WulinAuth
         rescue ActiveRecord::RecordNotFound
           nil
         end
+      end
     end
   end
 end
