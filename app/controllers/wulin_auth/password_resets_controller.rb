@@ -67,7 +67,7 @@ module WulinAuth
 
       attributes = permitted_params[:user].
                    merge(token: nil, token_expires_at: nil)
-      if @user.update_attributes(attributes)
+      if @user.update(attributes)
         session[:user_id] = @user.id
         flash[:notice] = t('wulin_auth.password_resets.success')
         redirect_to root_path

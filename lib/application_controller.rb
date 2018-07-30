@@ -5,8 +5,11 @@ module WulinAuth
     def current_user
       return @current_user if defined?(@current_user)
       @current_user ||= if session[:user_id]
-        WulinAuth::User.find(session[:user_id])
-      end
+        begin
+          WulinAuth::User.find(session[:user_id])
+        rescue ActiveRecord::RecordNotFound
+          nil
+        end
     end
   end
 end
