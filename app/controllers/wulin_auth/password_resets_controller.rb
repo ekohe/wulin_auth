@@ -26,6 +26,7 @@ module WulinAuth
     def reset
       @user = User.by_token(params[:token]).first
       return if @user
+
       flash.now[:notice] = t('wulin_auth.password_resets.error')
       render :new
     end

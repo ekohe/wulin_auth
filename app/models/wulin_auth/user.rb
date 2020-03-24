@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require WulinAuth::Engine.root.join('lib', 'password_complexity_validator')
 
 module WulinAuth

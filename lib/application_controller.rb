@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 module WulinAuth
   module AbstractController
     extend ActiveSupport::Concern
 
     def current_user
       return @current_user if defined?(@current_user)
+
       @current_user ||= if session[:user_id]
         begin
           WulinAuth::User.find(session[:user_id])
@@ -15,7 +18,7 @@ module WulinAuth
   end
 end
 
-::AbstractController::Base.send :include, WulinAuth::AbstractController
+::AbstractController::Base.include WulinAuth::AbstractController
 
 module WulinAuth
   module Controller
@@ -59,4 +62,4 @@ module WulinAuth
   end
 end
 
-::ActionController::Base.send :include, WulinAuth::Controller
+::ActionController::Base.include WulinAuth::Controller
