@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-require 'engine' if defined?(Rails) && Rails::VERSION::MAJOR == 5
+require 'engine' if defined?(Rails) && Rails::VERSION::MAJOR >= 5
 
 module WulinAuth
   class << self
