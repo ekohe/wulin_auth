@@ -16,7 +16,7 @@ AllCops:
 Style/StringLiterals:
   Enabled: false
 
-Documentation:
+Style/Documentation:
   Enabled: false
 
 Style/RegexpLiteral:
@@ -25,7 +25,7 @@ Style/RegexpLiteral:
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 80
 
 Metrics/BlockLength:
@@ -65,7 +65,7 @@ Layout/CaseIndentation:
   EnforcedStyle: end
   IndentOneStep: false
 
-Lint/EndAlignment:
+Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
 
 Metrics/AbcSize:
@@ -83,8 +83,11 @@ Metrics/ParameterLists:
 Lint/UselessAssignment:
   Enabled: false
 
-Style/NumericLiterals:
-  Enabled: false
+Style/HashEachMethods:
+  Enabled: true
 
-Rails:
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
   Enabled: true
