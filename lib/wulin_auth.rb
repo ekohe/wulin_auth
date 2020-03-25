@@ -1,4 +1,4 @@
-require 'engine' if defined?(Rails) && Rails::VERSION::MAJOR >= 5
+require 'wulin_auth/engine' if defined?(Rails) && Rails::VERSION::MAJOR >= 5
 
 module WulinAuth
   class << self
