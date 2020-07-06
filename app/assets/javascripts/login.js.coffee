@@ -30,7 +30,7 @@ enableForm = ->
   $("#preloader").hide()
 
 displayFlashNotice = (message) ->
-  Materialize.toast(message, 3000)
+  M.toast({html: message, displayLength: 3000})
 
 handleLoginResponse = (response) ->
   if response.status == "wrong_credentials"
@@ -51,7 +51,7 @@ handleLoginResponse = (response) ->
 
 window.toast = (message) ->
   if message
-    Materialize.toast(message, 3000);
+    M.toast({html: message, displayLength: 3000});
 
 window.initializeLoginForm = () ->
   # Initial focus on the email field
