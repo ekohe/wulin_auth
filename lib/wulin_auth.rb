@@ -31,10 +31,10 @@ if defined? WulinMaster
     sub_menu.add_menu(:change_password,
                       label: 'Change Password',
                       icon: :lock,
-                      url: "https://mima.ekohe.com/change_password")
+                      url: -> { new_password_reset_path })
     sub_menu.add_menu(:lagout,
                       label: 'Logout',
                       icon: :eject,
-                      url: "/logout")
+                      url: -> { logout_path })
   end
 end
