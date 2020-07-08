@@ -30,11 +30,11 @@ if defined? WulinMaster
                                          order: 1000) do |sub_menu|
     sub_menu.add_menu(:change_password,
                       label: 'Change Password',
-                      icon: :eject,
+                      icon: :lock,
                       url: "https://mima.ekohe.com/change_password")
     sub_menu.add_menu(:lagout,
                       label: 'Logout',
-                      icon: :lock,
+                      icon: :eject,
                       url: "/logout")
   end
 end
