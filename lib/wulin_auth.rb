@@ -31,10 +31,12 @@ if defined? WulinMaster
     sub_menu.add_menu(:change_password,
                       label: 'Change Password',
                       icon: :lock,
+                      order: 1,
                       url: -> { new_password_reset_path })
-    sub_menu.add_menu(:lagout,
+    sub_menu.add_menu(:logout,
                       label: 'Logout',
                       icon: :eject,
+                      order: 1000, # large enough to make sure the logout menu ordered in the end of the user menu
                       url: -> { logout_path })
   end
 end
