@@ -36,7 +36,7 @@ if defined? WulinMaster
     sub_menu.add_menu(:logout,
                       label: 'Logout',
                       icon: :eject,
-                      order: 1000, # large enough to make sure the logout menu ordered in the end of the user menu
+                      order: 1000, # large enough
                       url: -> { logout_path })
   end
 end
