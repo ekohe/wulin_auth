@@ -28,11 +28,6 @@ if defined? WulinMaster
                                          class: "dropdown-trigger",
                                          data: { target: "user_menu-list" },
                                          order: 1000) do |sub_menu|
-    sub_menu.add_menu(:change_password,
-                      label: 'Change Password',
-                      icon: :lock,
-                      order: 1,
-                      url: -> { new_password_reset_path })
     sub_menu.add_menu(:logout,
                       label: 'Logout',
                       icon: :eject,
