@@ -12,8 +12,6 @@ Gem::Specification.new do |s|
   s.summary     = "Authentication module for wulin_master"
   s.description = "This gem provides email-based authentication features."
 
-  s.rubyforge_project = "wulin_auth"
-
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = []
