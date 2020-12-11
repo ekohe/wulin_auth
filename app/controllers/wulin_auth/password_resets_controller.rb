@@ -45,12 +45,11 @@ module WulinAuth
       @user = User.new(password: params[:password])
       @user.valid?
       response = { valid: @user.errors[:password].none? }
-      if @user.errors[:password].any?
-        response[:error] = @user.errors[:password].join(', ')
-      end
+      response[:error] = @user.errors[:password].join(', ') if @user.errors[:password].any?
       render json: response
     end
 
+    # rubocop:disable Metrics/AbcSize:
     def update
       @user = User.by_token(params[:id]).first
 
@@ -80,6 +79,7 @@ module WulinAuth
         render :reset
       end
     end
+    # rubocop:enable Metrics/AbcSize:
 
     private
 

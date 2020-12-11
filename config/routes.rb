@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
   get 'login', to: 'wulin_auth/user_sessions#new'
   post 'login', to: 'wulin_auth/user_sessions#create'
