@@ -24,6 +24,8 @@ module WulinAuth
     def email_sent; end
 
     def reset
+      @action = request.original_fullpath.match('/setup_password/.*') ? 'setup' : 'reset'
+
       @user = User.by_token(params[:token]).first
       return if @user
 
