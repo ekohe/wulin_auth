@@ -22,11 +22,14 @@ Style/Documentation:
 Style/RegexpLiteral:
   Enabled: false
 
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 
 Layout/LineLength:
-  Max: 80
+  Max: 120
 
 Metrics/BlockLength:
   Exclude:

@@ -18,6 +18,15 @@ en:
       password_cannot_be_blank: Password cannot be blank
       success: Your password has been successfully reset.
       email_subject: Reset your password
+    password_setup:
+      title: Setup your password
+      email: Email
+      submit: Setup your password
+      email_non_existent: Sorry, this email address does not seem to be registered.
+      error: An error occured. Please try again.
+      password_cannot_be_blank: Password cannot be blank
+      success: Your password has been successfully setup.
+      email_subject: Setup your password
     reset_password:
       email_sent_title: Email Sent
       email_sent: We have sent you an email to reset your password.
@@ -27,6 +36,15 @@ en:
       password: Password
       password_confirmation: Confirm new password
       submit: Reset password and login
+    setup_password:
+      email_sent_title: Email Sent
+      email_sent: We have sent you an email to setup your password.
+                  Please check your mailbox and follow the instructions.
+      title: Setup your password
+      instructions: "In order to setup the password for %{email}, please enter a new password below:"
+      password: Password
+      password_confirmation: Confirm new password
+      submit: Setup password and login
 
       email:
         hello: Hello,

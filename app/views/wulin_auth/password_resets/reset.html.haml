@@ -1,29 +1,31 @@
+:ruby
+  subject = @action == 'setup' ? 'setup_password' : 'reset_password'
 #container.valign-wrapper
   .row
     .card.larger
       .card-content
         .row
-          %h5=t 'wulin_auth.reset_password.title'
+          %h5=t "wulin_auth.#{subject}.title"
         = form_for :user, :url => password_reset_path(params[:token] || @user.token), :method => 'put' do |f|
           .row
-            =t 'wulin_auth.reset_password.instructions', email: @user.email
+            =t "wulin_auth.#{subject}.instructions", email: @user.email
           .row
             .input-field
               = password_field_tag 'user[password]', '', {class: @user.errors[:password].empty? ? '' : 'invalid'}
-              = label_tag 'user_password', t('wulin_auth.reset_password.password')
+              = label_tag 'user_password', t("wulin_auth.#{subject}.password")
               .error_message#user_password_error_message
                 - unless @user.errors[:password].empty?
                   = @user.errors[:password].join(',')
           .row
             .input-field
               = password_field_tag 'user[password_confirmation]', '', {class: @user.errors[:password_confirmation].empty? ? '' : 'invalid'}
-              = label_tag 'user_password_confirmation', t('wulin_auth.reset_password.password_confirmation')
+              = label_tag 'user_password_confirmation', t("wulin_auth.#{subject}.password_confirmation")
               .error_message#user_password_confirmation_error_message{data: {blank_message: t('activerecord.errors.models.wulin_auth/user.confirmation')}}
                 - unless @user.errors[:password_confirmation].empty?
                   = @user.errors[:password_confirmation].join(',')
           .row.center
             .btn.waves-effect
-              = submit_tag t('wulin_auth.reset_password.submit')
+              = submit_tag t("wulin_auth.#{subject}.submit")
 
 :javascript
   $(document).ready(function() {

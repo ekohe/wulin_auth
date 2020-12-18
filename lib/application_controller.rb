@@ -46,9 +46,7 @@ module WulinAuth
         format.html do
           session[:return_to] = request.get? ? request.url : nil
           logger.info '[WulinAuth] Authentication needed, redirecting to login'
-          if session[:return_to]
-            logger.info "[WulinAuth] Saving return_to: #{session[:return_to]}"
-          end
+          logger.info "[WulinAuth] Saving return_to: #{session[:return_to]}" if session[:return_to]
           flash[:notice] = message
           redirect_to login_path
           return false

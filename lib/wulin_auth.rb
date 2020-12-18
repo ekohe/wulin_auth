@@ -3,10 +3,7 @@
 require 'wulin_auth/engine' if defined?(Rails) && Rails::VERSION::MAJOR >= 5
 
 module WulinAuth
-  class << self
-    mattr_accessor :password_reset_email_from
-    self.password_reset_email_from = 'noreply@domain.tld'
-  end
+  mattr_accessor :password_reset_email_from, default: 'noreply@domain.tld'
 
   def self.setup(&_block)
     yield self
