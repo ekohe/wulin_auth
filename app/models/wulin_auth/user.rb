@@ -4,8 +4,12 @@ require WulinAuth::Engine.root.join('lib', 'password_complexity_validator')
 
 module WulinAuth
   class User < ApplicationRecord
+    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
+    before_save { self.email = email.downcase }
+
     has_secure_password
-    validates :email, presence: true, uniqueness: true
+
+    validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
     validates_with PasswordComplexityValidator
 
     scope :by_token, lambda { |token|
