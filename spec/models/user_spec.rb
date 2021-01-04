@@ -10,8 +10,14 @@ RSpec.describe WulinAuth::User, type: :model do
       user.password = 'simplepassword'
       expect(user).not_to be_valid
       expect(user.errors[:password]).not_to be_empty
-      expect(user.errors[:password]).to(
+      expect(user.errors.full_messages).to(
         include('Password is not secure, please try a more complex password')
+      )
+
+      user.password_confirmation = 'simplepassword test'
+      expect(user).not_to be_valid
+      expect(user.errors.full_messages).to(
+        include("Password confirmation doesn't match with password")
       )
 
       user.password = "fdsi1*w0a91jk"
