@@ -54,5 +54,5 @@ en:
     errors:
       models:
         wulin_auth/user:
-          confirmation: Passwords don't match
-          complexity: Password is not secure, please try a more complex password
+          confirmation: doesn't match with password
+          complexity: is not secure, please try a more complex password
