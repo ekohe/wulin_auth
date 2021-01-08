@@ -20,7 +20,7 @@
             .input-field
               = password_field_tag 'user[password_confirmation]', '', {class: @user.errors[:password_confirmation].empty? ? '' : 'invalid'}
               = label_tag 'user_password_confirmation', t("wulin_auth.#{subject}.password_confirmation")
-              .error_message#user_password_confirmation_error_message{data: {blank_message: t('activerecord.errors.models.wulin_auth/user.confirmation')}}
+              .error_message#user_password_confirmation_error_message{data: { blank_message: "Password confirmation #{t('activerecord.errors.models.wulin_auth/user.confirmation')}" }}
                 - unless @user.errors[:password_confirmation].empty?
                   = @user.errors[:password_confirmation].join(',')
           .row.center
@@ -48,7 +48,9 @@
             $("#user_password_error_message").html('');
           } else {
             $("#user_password").addClass('invalid');
-            $("#user_password_error_message").html(data.error);
+
+            var errorMessage = data.error.replace(/\r?\n/g, '<br />')
+            $("#user_password_error_message").html(errorMessage);
             validatePasswordOnKeyPress = true;
           }
         }});
