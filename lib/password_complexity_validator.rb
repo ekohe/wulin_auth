@@ -7,7 +7,11 @@ class PasswordComplexityValidator < ActiveModel::Validator
     return if record.password.blank?
 
     result = Zxcvbn::Tester.new.test(record.password)
-    min_score = options[:min_score] || 3
-    record.errors.add(:password, :complexity) if result.score < min_score
+    min_score = options[:min_score] || 2
+    return unless result.score < min_score
+
+    warning = result.feedback.warning
+    suggestions = result.feedback.suggestions.join("\n")
+    record.errors.add(:password, "is not secure: #{warning}\n#{suggestions}")
   end
 end

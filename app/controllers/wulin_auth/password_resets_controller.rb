@@ -45,7 +45,7 @@ module WulinAuth
       @user = User.new(password: params[:password])
       @user.valid?
       response = { valid: @user.errors[:password].none? }
-      response[:error] = @user.errors[:password].join(', ') if @user.errors[:password].any?
+      response[:error] = "Password #{@user.errors[:password].join(', ')}" if @user.errors[:password].any?
       render json: response
     end
 

@@ -58,4 +58,3 @@ en:
       models:
         wulin_auth/user:
           confirmation: doesn't match with password
-          complexity: is not secure, please try a more complex password
