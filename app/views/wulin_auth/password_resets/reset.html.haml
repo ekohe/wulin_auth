@@ -30,38 +30,45 @@
 :javascript
   $(document).ready(function() {
     var validatePasswordOnKeyPress = false;
+    var shouldValidateConfirmation = false;
+    var checkedPassword = null;
 
     function validatePassword() {
-      $.ajax({
-        url: '/reset_password/password_complexity',
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-        },
-        method: 'POST',
-        dataType: 'json',
-        data: {
-          password: $("#user_password").val()
-        },
-        success: function(data) {
-          if (data.valid) {
-            $("#user_password").removeClass('invalid');
-            $("#user_password_error_message").html('');
-          } else {
-            $("#user_password").addClass('invalid');
+      if (checkedPassword != $("#user_password").val()) {
+        checkedPassword = $("#user_password").val();
+        $.ajax({
+          url: '/reset_password/password_complexity',
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          },
+          method: 'POST',
+          dataType: 'json',
+          data: {
+            password: checkedPassword
+          },
+          success: function(data) {
+            if (data.valid) {
+              $("#user_password").removeClass('invalid');
+              $("#user_password_error_message").html('');
+            } else {
+              $("#user_password").addClass('invalid');
 
-            var errorMessage = data.error.replace(/\r?\n/g, '<br />')
-            $("#user_password_error_message").html(errorMessage);
-            validatePasswordOnKeyPress = true;
-          }
-        }});
+              var errorMessage = data.error.replace(/\r?\n/g, '<br />')
+              $("#user_password_error_message").html(errorMessage);
+              validatePasswordOnKeyPress = true;
+            }
+          }});
+        }
 
        if ($("#user_password").val().length>0) {
          if ($("#user_password").val()==$("#user_password_confirmation").val()) {
            $("#user_password_confirmation").removeClass('invalid');
            $("#user_password_confirmation_error_message").html('');
          } else {
-           $("#user_password_confirmation").addClass('invalid');
-           $("#user_password_confirmation_error_message").html($("#user_password_confirmation_error_message").data().blankMessage);
+           if (shouldValidateConfirmation) {
+            $("#user_password_confirmation").addClass('invalid');
+            $("#user_password_confirmation_error_message").html($("#user_password_confirmation_error_message").data().blankMessage);
+           }
          }
        } else {
         $("#user_password_confirmation").removeClass('invalid');
@@ -70,11 +77,14 @@
     }
 
     $("#user_password").on('change', validatePassword);
-    $("#user_password_confirmation").on('change', validatePassword);
+    $("#user_password_confirmation").on('change', function() {
+      shouldValidateConfirmation = true;
+      validatePassword();
+    });
+
     $("#user_password").on('keyup keydown', function() {
       if (validatePasswordOnKeyPress) {
         validatePassword();
       }
     });
-
   });
