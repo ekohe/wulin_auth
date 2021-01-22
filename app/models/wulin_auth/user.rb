@@ -9,6 +9,7 @@ module WulinAuth
     has_secure_password
 
     validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: { case_sensitive: false }
+    validates :password, presence: true
     validates_with PasswordComplexityValidator
 
     scope :by_token, lambda { |token|

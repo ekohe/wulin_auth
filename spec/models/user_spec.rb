@@ -24,6 +24,13 @@ RSpec.describe WulinAuth::User, type: :model do
       user.password = "fdsi1*w0a91jk"
       expect(user).not_to be_valid
       expect(user.errors[:password]).to be_empty
+
+      user.password = nil
+      expect(user).not_to be_valid
+      expect(user.errors[:password]).not_to be_empty
+      expect(user.errors.full_messages).to(
+        include("Password can't be blank")
+      )
     end
   end
 
