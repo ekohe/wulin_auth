@@ -23,7 +23,8 @@ module WulinAuth
 
     def send_password_reset!
       create_token
-      if save
+      # sometimes the password is not required, so we'd better skip validating when resetting token
+      if save(validate: false)
         PasswordResetMailer.reset_password(self).deliver
       else
         false
