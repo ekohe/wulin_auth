@@ -52,4 +52,47 @@ RSpec.describe WulinAuth::User, type: :model do
       expect(user_with_existing_email.errors[:email]).to include('has already been taken')
     end
   end
+
+  describe '#send_password_reset!' do
+    let(:mailer) { spy('mailer') }
+
+    before do
+      user.email = 'wulin_auth@ekohe.com'
+      user.token = nil
+      user.token_expires_at = nil
+      allow(WulinAuth::PasswordResetMailer).to receive(:reset_password).with(user).and_return(mailer)
+    end
+
+    context 'user is not valid' do
+      before do
+        user.password = nil
+      end
+
+      it "changes the user's token and send the password reset email" do
+        expect(user).not_to be_valid
+        expect(mailer).to receive(:deliver)
+
+        user.send_password_reset!
+
+        expect(user.token).not_to be_nil
+        expect(user.token_expires_at).not_to be_nil
+      end
+    end
+
+    context 'user is valid' do
+      before do
+        user.password = 'fdsi1*w0a91jk'
+      end
+
+      it "changes the user's token and send the password reset email" do
+        expect(user).to be_valid
+        expect(mailer).to receive(:deliver)
+
+        user.send_password_reset!
+
+        expect(user.token).not_to be_nil
+        expect(user.token_expires_at).not_to be_nil
+      end
+    end
+  end
 end
