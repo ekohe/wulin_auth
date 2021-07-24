@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module WulinAuth
-  class PasswordResetsController < ApplicationController
+  class PasswordResetsController < ActionController::Base
     include Rails.application.routes.url_helpers
     layout 'wulin_auth'
     def new; end
