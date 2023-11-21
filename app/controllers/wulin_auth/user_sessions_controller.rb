@@ -57,7 +57,7 @@ module WulinAuth
     def destroy
       reset_session
       redirect_path = params[:redirect_uri].presence || login_path
-      redirect_to redirect_path
+      redirect_to redirect_path, allow_other_host: true
     end
   end
 end
