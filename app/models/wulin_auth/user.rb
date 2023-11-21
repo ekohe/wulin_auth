@@ -23,11 +23,32 @@ module WulinAuth
 
     def send_password_reset!
       create_token
+      # ignore password reset request from microsoft user
+      return false if User.microsoft?(self)
+
       # sometimes the password is not required, so we'd better skip validating when resetting token
       if save(validate: false)
         PasswordResetMailer.reset_password(self).deliver
       else
         false
+      end
+    end
+
+    def self.microsoft?(user)
+      if user&.email
+        user_email_domain = user.email.split('@').last.strip.downcase
+        User.microsoft_login_email_domain.include? user_email_domain
+      else
+        false
+      end
+    end
+
+    def self.microsoft_login_email_domain
+      if defined? APP_CONFIG
+        APP_CONFIG.dig(Rails.env, "provider_domain", "microsoft") || []
+      else
+        Rails.logger.error "Missing APP_CONFIG file for provider_domain microsoft Office 365 SSO"
+        []
       end
     end
   end
