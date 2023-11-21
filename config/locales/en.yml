@@ -53,6 +53,10 @@ en:
         hello: Hello,
         please_click: 'In order to setup your password, please click on the following link:'
         footer: Thanks!
+  omniauth:
+    office_365:
+      error: There was a problem signing you in through Office 365. Please register or try signing later.
+      instructions: Please connect using Microsoft Office 365
   activerecord:
     errors:
       models:

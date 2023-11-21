@@ -52,10 +52,12 @@ handleLoginResponse = (response) ->
 window.toast = (message) ->
   if message
     M.toast({html: message, displayLength: 3000});
+    if message =="Please connect using Microsoft Office 365"
+      $("#microsoft_login").click()
 
 window.initializeLoginForm = () ->
   # Initial focus on the email field
   $("input#email").focus()
   # Ajaxify the form
-  $("form").submit(-> loginFormSubmission($(this)))
+  $("#wulin_auth_form form").submit(-> loginFormSubmission($(this)))
   true

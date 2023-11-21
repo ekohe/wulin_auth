@@ -15,7 +15,8 @@ module WulinAuth
     # POST /login
     def create
       user = WulinAuth::User.find_by(email: params[:email].try(:downcase))
-      if user.try(:authenticate, params[:password])
+
+      if !User.microsoft?(user) && user.try(:authenticate, params[:password])
         session[:user_id] = user.id
         respond_to do |format|
           redirect_url = (session[:return_to] || '/')
@@ -27,11 +28,17 @@ module WulinAuth
                            redirect_to: redirect_url }
           end
         end
+      # microsoft login users
+      elsif User.microsoft?(user)
+        respond_to do |format|
+          format.html do
+            render_new_with_notice "omniauth.office_365.instructions"
+          end
+        end
       else
         respond_to do |format|
           format.html do
-            flash[:notice] = t('wulin_auth.user_sessions.incorrect')
-            render :new
+            render_new_with_notice "wulin_auth.user_sessions.incorrect"
           end
           format.json do
             render json: { status: :wrong_credentials,
@@ -39,6 +46,11 @@ module WulinAuth
           end
         end
       end
+    end
+
+    def render_new_with_notice(message)
+      flash[:notice] = t(message)
+      render :new
     end
 
     # GET /logout

@@ -9,8 +9,11 @@ module WulinAuth
     def create
       @user = User.where(email: params[:email].try(:downcase)).first
       if @user
-        if @user.send_password_reset!
+        if @user.send_password_reset! && !User.microsoft?(@user)
           redirect_to password_resets_email_sent_path
+        elsif User.microsoft?(@user)
+          flash.now[:notice] = t('omniauth.office_365.instructions')
+          render :new
         else
           flash.now[:notice] = t('wulin_auth.password_resets.error')
           render :new

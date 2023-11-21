@@ -1,10 +1,11 @@
+
 #container.valign-wrapper
   .row
     .card.larger
       .card-content
         .row
           %h5=t 'wulin_auth.login.title'
-        = form_tag login_path do
+        = form_tag :html => {:id => 'wulin_auth_form'}, :url => login_path do
           .row
             .input-field
               = email_field_tag 'email'
@@ -22,6 +23,13 @@
               = submit_tag 'Login', class: 'login-submit'
           #preloader.row.center{style: 'display: none; height: 50px;'}
             = render 'wulin_auth/shared/preloader'
+        - if omniauth_microsoft_configured?
+          %p{id:'omniauth_separation_line'}
+            %span="Or"
+          #office_365
+            = form_tag "/auth/microsoft_office365", method: 'post' do
+              = submit_tag "Sign in with Office 365", {id: 'microsoft_login', class: 'red darken-1 btn', style: "text-transform: none"}
+
 
 :javascript
   $(document).ready(function() {
