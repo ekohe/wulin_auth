@@ -26,7 +26,7 @@ if defined? WulinMaster
                                          data: { target: "user_menu-list" },
                                          order: 1000) do |sub_menu|
     sub_menu.add_menu(:logout,
-                      label: 'Logout',
+                      label: 'ログアウト',
                       icon: :eject,
                       order: 1000, # large enough
                       url: -> { logout_path })
