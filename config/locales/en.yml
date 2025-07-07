@@ -57,6 +57,9 @@ en:
     office_365:
       error: There was a problem signing you in through Office 365. Please register or try signing later.
       instructions: Please connect using Microsoft Office 365
+      invalid_credentials: Your Office 365 credentials have expired or are invalid. Please try signing in again or contact your administrator.
+      timeout: The Office 365 sign-in process timed out. Please try again.
+      access_denied: Access was denied during Office 365 authentication. Please check your permissions or contact your administrator.
   activerecord:
     errors:
       models:
