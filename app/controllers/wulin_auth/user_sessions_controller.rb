@@ -16,10 +16,11 @@ module WulinAuth
     def create
       user = WulinAuth::User.find_by(email: params[:email].try(:downcase))
 
-      if !User.microsoft?(user) && user.try(:authenticate, params[:password])
+      redirect_url = session[:return_to] || '/'
+
+      if !User.microsoft?(user) && user.password_digest? && user.try(:authenticate, params[:password])
         session[:user_id] = user.id
         respond_to do |format|
-          redirect_url = (session[:return_to] || '/')
           format.html { redirect_to redirect_url }
           format.json do
             render json: { status: :success,

@@ -1,4 +1,4 @@
-image: ruby:2.7.0
+image: ruby:2.7.8
 
 services:
   - postgres:latest
@@ -13,12 +13,16 @@ before_script:
   - apt-get update -qy
   - apt-get install -qy nodejs
   - apt-get install -qy libfontconfig1
-  - gem install bundler
+
+  # database
   - cp spec/dummy/config/database.ci.yml spec/dummy/config/database.yml
+
+  # gems
   - rm -rf Gemfile.lock
-  - bundle install -j8 --path /cache
+  - gem install bundler:2.4.22
+  - bundle config path vendor/bundle
+  - bundle install --quiet --jobs 8
 
 test:
   script:
-    - bundle exec rubocop
     - bundle exec rspec

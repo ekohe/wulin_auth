@@ -1,3 +1,4 @@
+.ruby-version
 pkg/*
 *.gem
 .bundle
@@ -7,3 +8,5 @@ spec/dummy/log/*.log
 spec/dummy/config/database.yml
 spec/dummy/tmp/cache/*
 spec/dummy/tmp/pids/*
+# ignore the bundle folder
+vendor/bundle/
