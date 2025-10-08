@@ -1,10 +1,13 @@
-@import 'materialize/components/color'
-$primary-color: color("blue", "lighten-2") !default
-$secondary-color: color("blue", "base") !default
-@import 'materialize'
-@import 'material_icons'
+@use 'theme.generated' as theme_generated;
+$color-theme: theme_generated.$color-theme;
 
-$main-color: <%= WulinMaster.config.color_theme %>
+@use 'materialize-css/sass/components/color-variables' as materialize_color;
+
+$main-color: materialize_color.color($color-theme, "base");
+$primary-color: materialize_color.color("blue", "lighten-2") !default
+$secondary-color: materialize_color.color("blue", "base") !default
+@use 'material-icons/iconfont/material-icons'
+@use 'materialize-css/sass/materialize'
 
 @import 'materialize.overrides'
 

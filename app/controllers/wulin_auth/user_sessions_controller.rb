@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WulinAuth
   class UserSessionsController < ActionController::Base
     before_action :require_login, only: [:destroy]
