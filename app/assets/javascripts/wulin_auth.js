@@ -39,7 +39,7 @@ function enableForm() {
 }
 
 function displayFlashNotice(message) {
-  M.toast(message, 3000);
+  M.toast({html: message, displayLength: 3000});
 }
 
 function handleLoginResponse(response) {
@@ -64,7 +64,7 @@ function handleLoginResponse(response) {
 
 window.toast = function(message) {
   if (message) {
-    M.toast(message, 3000);
+    M.toast({html: message, displayLength: 3000});
   }
 };
 

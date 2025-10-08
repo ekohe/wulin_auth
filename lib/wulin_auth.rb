@@ -1,4 +1,4 @@
-require 'engine' if defined?(Rails)
+require 'wulin_auth/engine' if defined?(Rails)
 
 module WulinAuth
   mattr_accessor :password_reset_email_from
