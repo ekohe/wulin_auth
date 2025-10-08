@@ -16,16 +16,11 @@ Gem::Specification.new do |s|
   s.executables = []
   s.require_paths = ["lib"]
 
-  s.add_dependency "bcrypt"
-  s.add_dependency "coffee-script"
-  s.add_dependency "haml"
-  s.add_dependency "jquery-rails"
-  s.add_dependency "material_icons"
-  s.add_dependency "materialize-sass"
-  s.add_dependency "rails"
-  s.add_dependency "sass-rails"
-  s.add_dependency "zxcvbn-ruby"
-  s.add_development_dependency "pg"
-  s.add_development_dependency "rspec-rails"
+  s.add_dependency 'rails'
+  s.add_dependency 'bcrypt'
+  s.add_dependency 'haml'
+  s.add_dependency 'zxcvbn-ruby'
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'pg'
   s.add_development_dependency "standardrb"
 end

@@ -1,9 +1,11 @@
-# frozen_string_literal: true
-
-require 'wulin_auth/engine' if defined?(Rails) && Rails::VERSION::MAJOR >= 5
+require 'engine' if defined?(Rails)
 
 module WulinAuth
-  mattr_accessor :password_reset_email_from, default: 'noreply@domain.tld'
+  mattr_accessor :password_reset_email_from
+
+  class << self
+    password_reset_email_from = "noreply@domain.tld"
+  end
 
   def self.setup(&_block)
     yield self
@@ -11,12 +13,7 @@ module WulinAuth
 end
 
 require 'application_controller'
-require 'jquery-rails'
-require 'sass-rails'
-require 'coffee-script'
 require 'haml'
-require 'materialize-sass'
-require 'material_icons'
 
 if defined? WulinMaster
   WulinMaster::AppBarMenu.menus.add_menu(:user_menu,
