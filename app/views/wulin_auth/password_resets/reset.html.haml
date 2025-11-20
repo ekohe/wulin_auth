@@ -6,13 +6,15 @@
       .card-content
         .row
           %h5=t "wulin_auth.#{subject}.title"
-        = form_for :user, :url => password_reset_path(params[:token] || @user.token), :method => 'put' do |f|
+        = form_for :user, :url => password_reset_path(params[:token] || @user.token), :method => 'put', :class => "reset-password" do |f|
           .row
             =t "wulin_auth.#{subject}.instructions", email: @user.email
           .row
             .input-field
               = password_field_tag 'user[password]', '', {class: @user.errors[:password].empty? ? '' : 'invalid'}
               = label_tag 'user_password', t("wulin_auth.#{subject}.password")
+              .hint
+                = I18n.t('wulin_auth.password_resets.password_hint')
               .error_message#user_password_error_message
                 - unless @user.errors[:password].empty?
                   = @user.errors[:password].join(',')
