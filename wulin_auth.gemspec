@@ -24,7 +24,11 @@ Gem::Specification.new do |s|
   s.add_dependency "materialize-sass"
   s.add_dependency "rails"
   s.add_dependency "sass-rails"
-  s.add_dependency "zxcvbn-ruby"
+  # The 1.x API, pinned. PasswordComplexityValidator calls `Zxcvbn::Tester.new` with no arguments;
+  # 2.0.1 made that `Tester.new(data:, max_password_length:)`, so a host app resolving the latest
+  # gets `ArgumentError: missing keywords: :data, :max_password_length` the first time it saves a
+  # user -- and the error names neither this gem nor the password, so it reads as a bad seed value.
+  s.add_dependency "zxcvbn-ruby", "~> 1.0"
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "standardrb"
