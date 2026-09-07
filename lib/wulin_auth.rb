@@ -11,12 +11,7 @@ module WulinAuth
 end
 
 require 'application_controller'
-require 'jquery-rails'
-require 'sass-rails'
-require 'coffee-script'
 require 'haml'
-require 'materialize-sass'
-require 'material_icons'
 
 if defined? WulinMaster
   WulinMaster::AppBarMenu.menus.add_menu(:user_menu,

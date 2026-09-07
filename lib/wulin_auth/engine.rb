@@ -5,7 +5,9 @@ require 'rails'
 module WulinAuth
   class Engine < ::Rails::Engine
     initializer "add assets to precompile" do |app|
-      app.config.assets.precompile += %w[wulin_auth.js wulin_auth.css]
+      if app.config.respond_to?(:assets) && app.config.assets.respond_to?(:precompile)
+        app.config.assets.precompile += %w[wulin_auth.js wulin_auth.css]
+      end
     end
 
     initializer :append_migrations do |app|
