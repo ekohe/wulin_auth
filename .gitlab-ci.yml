@@ -25,5 +25,5 @@ before_script:
 
 test:
   script:
-    - bundle exec rails db:schema:load
+    - RAILS_ENV=test bundle exec rails db:schema:load
     - bundle exec rspec
