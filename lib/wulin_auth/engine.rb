@@ -13,8 +13,10 @@ module WulinAuth
     end
 
     initializer :append_migrations do |app|
-      config.paths['db/migrate'].expanded.each do |migration_path|
-        app.config.paths['db/migrate'] << migration_path
+      unless app.root.to_s.match root.to_s
+        config.paths["db/migrate"].expanded.each do |migration_path|
+          app.config.paths["db/migrate"] << migration_path
+        end
       end
     end
   end
