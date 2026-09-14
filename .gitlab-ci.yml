@@ -1,4 +1,4 @@
-image: ruby:2.7.8
+image: ruby:4.0.6
 
 services:
   - postgres:latest
@@ -19,7 +19,7 @@ before_script:
 
   # gems
   - rm -rf Gemfile.lock
-  - gem install bundler:2.4.22
+  - gem install bundler
   - bundle config path vendor/bundle
   - bundle install --quiet --jobs 8
 
