@@ -1,1 +1,1 @@
-import "../assets/javascripts/login.js"
+import "./login.js"

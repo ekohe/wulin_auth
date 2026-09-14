@@ -5,7 +5,9 @@ require 'rails'
 module WulinAuth
   class Engine < ::Rails::Engine
     initializer "add assets to precompile" do |app|
-      if app.config.respond_to?(:assets) && app.config.assets.respond_to?(:precompile)
+      if defined?(Propshaft)
+        # Propshaft serves all assets automatically
+      else
         app.config.assets.precompile += %w[wulin_auth.js wulin_auth.css]
       end
     end
