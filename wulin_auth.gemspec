@@ -16,9 +16,11 @@ Gem::Specification.new do |s|
   s.executables = []
   s.require_paths = ["lib"]
 
+  s.required_ruby_version = ">= 3.4"
+
   s.add_dependency "bcrypt"
   s.add_dependency "haml"
-  s.add_dependency "rails"
+  s.add_dependency "rails", ">= 8.1"
   s.add_dependency "zxcvbn-ruby"
   s.add_development_dependency "propshaft"
   s.add_development_dependency "pg"
