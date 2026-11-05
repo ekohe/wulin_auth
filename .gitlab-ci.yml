@@ -1,9 +1,12 @@
-image: ruby:4.0.6
+# The wulin v3 Ruby policy: the floor is 3.4 (the gemspec), the default is 4.0. Tests run on both,
+# each on the newest patch of its line through the floating tag; anything else runs on the default.
+image: ruby:$RUBY_VERSION
 
 services:
   - postgres:latest
 
 variables:
+  RUBY_VERSION: "4.0"
   POSTGRES_DB: wulin_auth_test
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: ''
@@ -24,6 +27,9 @@ before_script:
   - bundle install --quiet --jobs 8
 
 test:
+  parallel:
+    matrix:
+      - RUBY_VERSION: ["3.4", "4.0"]
   script:
     - RAILS_ENV=test bundle exec rails db:schema:load
     - bundle exec rspec
