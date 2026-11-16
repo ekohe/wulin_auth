@@ -1,17 +1,13 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
+require "propshaft"
 
 Bundler.require(*Rails.groups)
-require 'wulin_auth'
+require "wulin_auth"
 
 module Dummy
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    config.load_defaults 8.0
   end
 end
