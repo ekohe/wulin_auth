@@ -8,6 +8,6 @@ require "wulin_auth"
 
 module Dummy
   class Application < Rails::Application
-    config.load_defaults 8.0
+    config.load_defaults 8.1
   end
 end

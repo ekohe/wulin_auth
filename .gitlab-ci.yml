@@ -1,4 +1,7 @@
-image: ruby:4.0.6
+image: ruby:4.0.9
+
+stages:
+  - test
 
 services:
   - postgres:latest
@@ -9,21 +12,30 @@ variables:
   POSTGRES_PASSWORD: ''
   POSTGRES_HOST_AUTH_METHOD: trust
 
-before_script:
-  - apt-get update -qy
-  - apt-get install -qy nodejs
-  - apt-get install -qy libfontconfig1
+default:
+  before_script:
+    - bundle config set --local path vendor/bundle
+    - bundle install --jobs 8
+  cache:
+    key:
+      files:
+        - Gemfile.lock
+    paths:
+      - vendor/bundle
 
-  # database
-  - cp spec/dummy/config/database.ci.yml spec/dummy/config/database.yml
-
-  # gems
-  - rm -rf Gemfile.lock
-  - gem install bundler
-  - bundle config path vendor/bundle
-  - bundle install --quiet --jobs 8
+build:
+  stage: test
+  script:
+    - gem build wulin_auth.gemspec
 
 test:
+  stage: test
+  before_script:
+    - apt-get update -qy
+    - apt-get install -qy nodejs libfontconfig1
+    - cp spec/dummy/config/database.ci.yml spec/dummy/config/database.yml
+    - bundle config set --local path vendor/bundle
+    - bundle install --jobs 8
   script:
     - RAILS_ENV=test bundle exec rails db:schema:load
     - bundle exec rspec

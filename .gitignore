@@ -1,12 +1,10 @@
-.ruby-version
-pkg/*
 *.gem
 .bundle
-*.log
 .DS_Store
-spec/dummy/log/*.log
+/pkg/
+/tmp/
+/log/
+/vendor/bundle/
 spec/dummy/config/database.yml
-spec/dummy/tmp/cache/*
-spec/dummy/tmp/pids/*
-# ignore the bundle folder
-vendor/bundle/
+spec/dummy/log/
+spec/dummy/tmp/
